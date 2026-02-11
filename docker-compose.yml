@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: octa
+      POSTGRES_PASSWORD: Admin
+    ports:
+      - "3035:5432"  
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    command: rails server -b 0.0.0.0 -p 3000  
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"   
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USERNAME: octa
+      DATABASE_PASSWORD: Admin
+

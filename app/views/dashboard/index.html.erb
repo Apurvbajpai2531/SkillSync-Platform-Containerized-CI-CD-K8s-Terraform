@@ -1,0 +1,45 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4">SkillSync Dashboard</h1>
+
+  <div class="grid grid-cols-3 gap-4">
+    <div class="p-4 bg-white shadow rounded">
+      <h2 class="font-semibold text-lg">Users</h2>
+      <p class="text-2xl"><%= User.count %></p>
+    </div>
+
+    <div class="p-4 bg-white shadow rounded">
+      <h2 class="font-semibold text-lg">Projects</h2>
+      <p class="text-2xl"><%= Project.count %></p>
+    </div>
+
+    <div class="p-4 bg-white shadow rounded">
+      <h2 class="font-semibold text-lg">Matches</h2>
+      <p class="text-2xl"><%= Match.count %></p>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold mb-2">Recent Projects</h2>
+    <table class="min-w-full bg-white shadow rounded">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b">Title</th>
+          <th class="py-2 px-4 border-b">Client</th>
+          <th class="py-2 px-4 border-b">Skills</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Project.order(created_at: :desc).limit(5).each do |project| %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= project.title %></td>
+            <td class="py-2 px-4 border-b"><%= project.user.email %></td>
+            <td class="py-2 px-4 border-b">
+              <%= project.skills.map(&:name).join(", ") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
