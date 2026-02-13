@@ -1,11 +1,16 @@
+version: "3.9"
+
 services:
   db:
     image: postgres:15
     environment:
       POSTGRES_USER: octa
       POSTGRES_PASSWORD: Admin
+      POSTGRES_DB: skillsync_development
     ports:
-      - "3035:5432"  
+      - "3035:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   redis:
     image: redis:7
@@ -14,16 +19,18 @@ services:
 
   web:
     build: .
-    command: rails server -b 0.0.0.0 -p 3000  
+    command: bash -c "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0 -p 3000"
     volumes:
       - .:/app
     ports:
-      - "3000:3000"   
+      - "3000:3000"
     depends_on:
       - db
       - redis
     environment:
       DATABASE_HOST: db
-      DATABASE_USERNAME: octa
+      DATABASE_USER: octa
       DATABASE_PASSWORD: Admin
 
+volumes:
+  postgres_data:
