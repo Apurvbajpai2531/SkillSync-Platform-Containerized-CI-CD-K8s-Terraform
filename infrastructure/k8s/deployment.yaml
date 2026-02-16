@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skillsync-app
+  namespace: skillsync
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skillsync
+  template:
+    metadata:
+      labels:
+        app: skillsync
+    spec:
+      containers:
+        - name: skillsync-container
+          image: skillsync-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
