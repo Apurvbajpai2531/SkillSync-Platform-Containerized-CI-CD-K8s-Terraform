@@ -3,8 +3,7 @@ class MatchUsersJob < ApplicationJob
 
   def perform(project)
     User.joins(:skills).where(skills: { id: project.skills.pluck(:id) }).each do |user|
-      Match.create(user: user, project: project, status: 'pending')
+      Match.create(user: user, project: project, status: "pending")
     end
   end
 end
-

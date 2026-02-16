@@ -11,4 +11,3 @@ project1.skills << skills
 
 project2 = Project.create(title: "React Frontend", description: "Dashboard UI", user: client)
 project2.skills << skills
-

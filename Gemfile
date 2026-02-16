@@ -65,7 +65,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'devise'
-gem 'sidekiq'
+gem "devise"
+gem "sidekiq"
 
 gem "tailwindcss-rails", "~> 4.4"
